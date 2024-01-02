@@ -1,0 +1,56 @@
+[theme]
+theme = "plain"
+
+[icons]
+icons = "awesome6"
+
+[icons.overrides]
+icons_format = "{icon}"
+
+[[block]]
+block = "net"
+#interface_name_exclude = []
+#interface_name_include = ["wg\\d+"]
+#interface_name_include = []
+#ap_format = "{strength} {ssid^10}"
+#device_format = "{icon}{ap}"
+format = " $icon $ip ^icon_net_down $speed_down.eng(prefix:K) ^icon_net_up $speed_up.eng(prefix:K) "
+
+[[block]]
+block = "bluetooth"
+mac = "14:3F:A6:60:36:CC"
+disconnected_format = ""
+
+[[block]]
+block = "disk_space"
+path = "~/"
+info_type = "available"
+interval = 60
+warning = 20.0
+alert = 10.0
+format = "$icon $available"
+
+[[block]]
+block = "sound"
+#format = " {volume}"
+
+[[block]]
+block = "time"
+interval = 5
+format = " $icon $timestamp.datetime(f:'%a %m/%d %I:%M')"
+
+#[[block]]
+#block = "memory"
+#display_type = "memory"
+#format_mem = "{mem_used_percents}"
+#format_swap = "{swap_used_percents}"
+#
+#[[block]]
+#block = "cpu"
+#interval = 1
+#
+#[[block]]
+#block = "load"
+#interval = 1
+#format = "{1m}"
+
