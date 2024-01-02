@@ -1,0 +1,5 @@
+directory: ~/music
+import:
+  move: yes
+  log: ~/.config/beets/beets.log
+plugins: fetchart ftintitle lastgenre lastimport 

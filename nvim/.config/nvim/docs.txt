@@ -1,0 +1,74 @@
+# Packer Commands
+
+-- You must run this or `PackerSync` whenever you make changes to your plugin configuration
+-- Regenerate compiled loader file
+:PackerCompile
+
+-- Remove any disabled or unused plugins
+:PackerClean
+
+-- Clean, then install missing plugins
+:PackerInstall
+
+-- Clean, then update and install plugins
+-- supports the `--preview` flag as an optional first argument to preview updates
+:PackerUpdate
+
+-- Perform `PackerUpdate` and then `PackerCompile`
+-- supports the `--preview` flag as an optional first argument to preview updates
+:PackerSync
+
+-- Show list of installed plugins
+:PackerStatus
+
+-- Loads opt plugin immediately
+:PackerLoad completion-nvim ale
+
+# Vim-airline
+https://github.com/vim-airline/vim-airline
+
+# Nvim-orgmode
+https://github.com/nvim-orgmode/orgmode
+
+-- Former contents of init.vim. Removed since I no longer use orgmode and it slows nvim down / breaks sometimes:
+        lua << EOF
+        -- Custom runtime path
+        vim.opt.runtimepath:append("~/.local/share/nvim/site/parser")
+        -- Load custom treesitter grammar for org filetype
+        require('orgmode').setup_ts_grammar()
+
+        -- Treesitter configuration
+        require('nvim-treesitter.configs').setup {
+          -- If TS highlights are not enabled at all, or disabled via `disable` prop,
+          -- highlighting will fallback to default Vim syntax highlighting
+          highlight = {
+            enable = true,
+            -- Required for spellcheck, some LaTex highlights and
+            -- code block highlights that do not have ts grammar
+            additional_vim_regex_highlighting = {'org'},
+          },
+          ensure_installed = {'org'}, -- Or run :TSUpdate org
+          -- Parser install custom dir
+          parser_install_dir = "~/.local/share/nvim/site/parser",
+        }
+        
+        require('orgmode').setup({
+          org_agenda_files = {'~/harvard/todo.org'},
+          org_default_notes_file = '~/harvard/todo.org',
+          org_todo_keywords = {'TODO', 'PROG', '|', 'DONE'},
+          org_todo_keyword_faces = {
+                PROG = ':foreground yellow :slant italic :underline on',
+          }
+        })
+        EOF
+
+# Treesitter
+https://github.com/nvim-treesitter/nvim-treesitter
+
+-- Install a new language parser
+:TSInstall <language_to_install> 
+
+-- List of installable languages
+https://github.com/nvim-treesitter/nvim-treesitter#supported-languages
+
+
