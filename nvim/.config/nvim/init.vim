@@ -9,7 +9,7 @@ if has("gui_running")
     set guioptions-=r "scrollbar
 endif
 
-colorscheme ron
+" colorscheme ron
 
 " Colors
 syntax enable
@@ -18,6 +18,9 @@ syntax enable
 set tabstop=4       " number of visual spaces per TAB
 set softtabstop=4   " number of spaces in TAB when editing
 set expandtab       " build TAB from spaces
+
+" Folding
+set foldmethod=indent
 
 " UI Config
 set number
@@ -83,7 +86,7 @@ nnoremap <Right> <nop>
 " Think of these as strong h and l
 nnoremap H 0
 nnoremap L $
-nnoremap dH a<return><esc>kdd
+nnoremap dH ld0
 nnoremap dL d$
 
 " Wrap current word in double quotes, single quotes, paren, brackets, braces

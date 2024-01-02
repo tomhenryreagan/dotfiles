@@ -1,0 +1,255 @@
+# TomHenry's i3 config
+
+# Modifier config
+set $mod Mod4
+set $sup Control 
+
+## Capslock -> CTRL 
+exec --no-startup-id "setxkbmap -option ctrl:nocaps"
+
+# Directions
+set $left h
+set $down j
+set $up k
+set $right l
+
+# Default terminal
+set $term kitty
+
+# Window title font
+font pango:inconsolata 12
+
+# App launcher  
+#set $menu dmenu_path | dmenu | xargs swaymsg exec --
+bindsym $mod+d exec --no-startup-id dmenu_run
+
+# Start a terminal
+bindsym $mod+minus exec $term
+bindsym $mod+Return exec $term
+
+# Kill focused window
+bindsym $mod+$sup+q kill
+
+# Load /etc/ settings too
+include /etc/sway/config.d/*
+
+# Drag floating windows by holding down $mod and left mouse button.
+## Resize them with right mouse button + $mod.
+## Despite the name, also works for non-floating windows.
+## Change normal to inverse to use left mouse button for resizing and right
+## mouse button for dragging.
+floating_modifier $mod 
+
+# Reload, restart, and exit
+bindsym $mod+$sup+period reload
+bindsym $mod+$sup+y restart
+bindsym $mod+$sup+u logout
+
+# Change focused window 
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+## Same w/ arrows
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# Move focused window
+bindsym $mod+$sup+$left move left
+bindsym $mod+$sup+$down move down
+bindsym $mod+$sup+$up move up
+bindsym $mod+$sup+$right move right
+## Same w/ arrows
+bindsym $mod+$sup+Left move left
+bindsym $mod+$sup+Down move down
+bindsym $mod+$sup+Up move up
+bindsym $mod+$sup+Right move right
+
+# Switch to workspace X
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
+
+# Move focused container to workspace
+bindsym $mod+$sup+1 move container to workspace number 1
+bindsym $mod+$sup+2 move container to workspace number 2
+bindsym $mod+$sup+3 move container to workspace number 3
+bindsym $mod+$sup+4 move container to workspace number 4
+bindsym $mod+$sup+5 move container to workspace number 5
+bindsym $mod+$sup+6 move container to workspace number 6
+bindsym $mod+$sup+7 move container to workspace number 7
+bindsym $mod+$sup+8 move container to workspace number 8
+bindsym $mod+$sup+9 move container to workspace number 9
+bindsym $mod+$sup+0 move container to workspace number 10
+
+# Assign names to monitors 
+set $laptop eDP-1
+set $msi    DP-5
+set $home_l DP-5
+set $home_r DP-4
+
+# Assign workspaces to monitors
+## 1-5 -> left monitor
+## 6-0 -> right monitor
+## Can specify multiple monitors on each line, and i3 will assign to the first detected
+workspace 1     output $home_l $msi $laptop
+workspace 2     output $home_l $msi $laptop
+workspace 3     output $home_l $msi $laptop
+workspace 4     output $home_l $msi $laptop
+workspace 5     output $home_l $msi $laptop
+workspace 6     output $home_r $laptop
+workspace 7     output $home_r $laptop
+workspace 8     output $home_r $laptop
+workspace 9     output $home_r $laptop
+workspace 10    output $home_r $laptop
+
+# TODO Map tablet to monitor 
+
+# Split container
+bindsym $mod+b splith
+bindsym $mod+v splitv
+
+# Switch the current container between different layout styles
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# Make the current focus fullscreen
+bindsym $mod+f fullscreen
+
+# Toggle the current focus between tiling and floating mode
+bindsym $mod+$sup+space floating toggle
+
+# Swap focus between the tiling area and the floating area
+bindsym $mod+space focus mode_toggle
+
+# Move focus to the parent container
+bindsym $mod+a focus parent
+
+# Scratchpad
+## Move the currently focused window to the scratchpad
+bindsym $mod+$sup+p move scratchpad
+## Show the next scratchpad window or hide the focused scratchpad window.
+bindsym $mod+p scratchpad show
+
+# Resizing containers:
+mode "resize" {
+    ## left will shrink the containers width
+    ## right will grow the containers width
+    ## up will shrink the containers height
+    ## down will grow the containers height
+    bindsym $left resize shrink width 10px or 10ppt
+    bindsym $down resize grow height 10px or 10ppt
+    bindsym $up resize shrink height 10px or 10ppt
+    bindsym $right resize grow width 10px or 10ppt
+
+    ## Same w/ arrows
+    bindsym Left resize shrink width 10px or 10ppt
+    bindsym Down resize grow height 10px or 10ppt
+    bindsym Up resize shrink height 10px or 10ppt
+    bindsym Right resize grow width 10px or 10ppt
+
+    ## Return to default mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym space mode "default"
+}
+bindsym $mod+r mode "resize"
+
+# Status Bar
+bar {
+    status_command i3status 
+    font pango: inconsolata, Font Awesome 6 Free 10
+    position top
+    tray_output primary
+    #height 16
+    #status_padding 0
+}
+
+# Screenshots 
+## Selection, whole screen, selection->clipboard, whole screen->clipboard
+bindsym $mod+F4 exec --no-startup-id maim --select ~/pictures/screenshots/$(date +'%Y-%m-%d-%H%M%S_maim.png')
+bindsym $mod+$sup+F4 exec --no-startup-id maim ~/pictures/screenshots/$(date +'%Y-%m-%d-%H%M%S_maim.png')
+bindsym $mod+F5 exec --no-startup-id maim --select ~/pictures/screenshots/$(date +'%Y-%m-%d-%H%M%S_maim.png') | xclip -selection clipboard -t image/png
+bindsym $mod+$sup+F5 exec --no-startup-id maim ~/pictures/screenshots/$(date +'%Y-%m-%d-%H%M%S_maim.png') | xclip -selection clipboard -t image/png
+
+# Volume control
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +2% 
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -2% 
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym $sup+XF86AudioPlay exec ~/.local/bin/switch_sink
+
+# Bluetooth headphone control
+bindsym $mod+n exec bluetoothctl -- connect 14:3F:A6:60:36:CC
+bindsym $sup+$mod+n exec bluetoothctl -- disconnect 14:3F:A6:60:36:CC
+
+# Touch tablet mapping -- cycle through displays, keep doing it until it hits the right one (workaround for NVIDIA bug)
+bindsym $mod+m exec --no-startup-id xsetwacom set 'Wacom Bamboo 2FG 4x5 Pen eraser' MapToOutput next && xsetwacom set 'Wacom Bamboo 2FG 4x5 Pen stylus' MapToOutput next
+
+# Desktop background 
+set $wallpaper "/home/tomhenry/.config/i3/wallpaper"
+set $bg "#666666"
+exec --no-startup-id xsetroot -solid $bg
+
+# Lock screen with keyboard shorcut 
+bindsym $mod+BackSpace exec i3lock -f -c 000000 
+bindsym $mod+$sup+BackSpace exec i3lock -f -c 000000 && systemctl suspend
+
+# Brightness control 
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+bindsym XF86MonBrightnessUp exec brightnessctl set 5%+
+
+# Gaps and borders
+#default_border pixel 4
+#gaps inner 4
+#smart_gaps on
+for_window [class="^.*"] border pixel 4
+
+# Window colors -- borrowed from github.com/joshpetit/dotfiles
+## class                 border  bground text    indicator child_border
+client.focused          #27AE60 #27AE60 #FFFFFF #27AE60   #27AE60
+client.focused_inactive #2C3E50 #2C3E50 #FFFFFF #2C3E50   #34495E
+client.unfocused        #2C3E50 #2C3E50 #888888 #2C3E50   #2C3E50
+client.urgent           #2F343A #3743BD #FFFFFF #3743BD   #3743BD
+client.placeholder      #000000 #0C0C0C #FFFFFF #000000   #0C0C0C
+client.background       #FFFFFF
+
+# Mouse doesn't move with focus
+mouse_warping none
+
+# GTK Theme
+exec_always --no-startup-id gsettings set org.gnome.desktop.interface gtk-theme Arc-Dark
+
+# Application specific window configs
+## Zoom TODO make these work
+#for_window [class="(.*join\?action\=join.*|.*zoom.*)"] floating enable
+#for_window [class="(.*join\?action\=join.*|.*zoom.*)" title="Zoom - Licensed Account"] floating disable
+#for_window [class="(.*join\?action\=join.*|.*zoom.*)" title="Zoom Meeting"] floating disable
+
+## Bitwarden
+for_window [class="Bitwarden"] floating enable
+for_window [class="Bitwarden"] resize set 640 480
+
+## Gnome Calculator
+for_window [class="gnome-calculator"] floating enable
+
+## OpenAuth
+for_window [class="AuthenticatorGUI"] floating enable
+
+# Startup applications
+## make protonvpn work
+exec --no-startup-id gnome-keyring-daemon --start 
+exec --no-startup-id nm-applet
+## redshift
+exec --no-startup-id redshift -c ~/.config/redshift.conf
+## dropbox
+exec --no-startup-id dropbox start
