@@ -101,10 +101,11 @@ bindsym $mod+$sup+9 move container to workspace number 9
 bindsym $mod+$sup+0 move container to workspace number 10
 
 # Multi-monitor setup
-set $left_monitor DVI-D-2
+#set $left_monitor DVI-D-2 # from old setup
+set $left_monitor HDMI-A-1
 set $right_monitor DVI-D-1
-output $left_monitor pos 0 0 res 1920x1080
-output $right_monitor pos 1920 0 res 1920x1080
+output $left_monitor pos 0 0 res 3440x1440 
+output $right_monitor pos 3440 0 res 1920x1080 transform 90 
 ## 1-5 -> left monitor
 ## 6-0 -> right monitor
 workspace 1     output $left_monitor
