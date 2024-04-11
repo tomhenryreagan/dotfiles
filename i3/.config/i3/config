@@ -93,26 +93,28 @@ bindsym $mod+$sup+0 move container to workspace number 10
 
 # Assign names to monitors 
 set $laptop eDP-1
-set $msi    DP-5
 set $home_l DP-5
 set $home_r DP-4
+set $work_r DP-2
 
 # Assign workspaces to monitors
 ## 1-5 -> left monitor
 ## 6-0 -> right monitor
 ## Can specify multiple monitors on each line, and i3 will assign to the first detected
-workspace 1     output $home_l $msi $laptop
-workspace 2     output $home_l $msi $laptop
-workspace 3     output $home_l $msi $laptop
-workspace 4     output $home_l $msi $laptop
-workspace 5     output $home_l $msi $laptop
-workspace 6     output $home_r $laptop
-workspace 7     output $home_r $laptop
-workspace 8     output $home_r $laptop
-workspace 9     output $home_r $laptop
-workspace 10    output $home_r $laptop
+workspace 1     output $home_l $laptop
+workspace 2     output $home_l $laptop
+workspace 3     output $home_l $laptop
+workspace 4     output $home_l $laptop
+workspace 5     output $home_l $laptop
+workspace 6     output $home_r $work_r $laptop
+workspace 7     output $home_r $work_r $laptop
+workspace 8     output $home_r $work_r $laptop
+workspace 9     output $home_r $work_r $laptop
+workspace 10    output $home_r $work_r $laptop
 
-# TODO Map tablet to monitor 
+# Load XRandR configuration automatically
+bindsym $mod+c exec autorandr --change
+bindsym $mod+$sup+c exec autorandr --load solo
 
 # Split container
 bindsym $mod+b splith
@@ -197,8 +199,9 @@ bindsym $mod+m exec --no-startup-id xsetwacom set 'Wacom Bamboo 2FG 4x5 Pen eras
 
 # Desktop background 
 set $wallpaper "/home/tomhenry/.config/i3/wallpaper"
-set $bg "#666666"
-exec --no-startup-id xsetroot -solid $bg
+set $gray "#666666"
+set $orange "#FF9900"
+exec --no-startup-id xsetroot -solid $orange
 
 # Lock screen with keyboard shorcut 
 bindsym $mod+BackSpace exec i3lock -f -c 000000 
@@ -245,6 +248,9 @@ for_window [class="gnome-calculator"] floating enable
 ## OpenAuth
 for_window [class="AuthenticatorGUI"] floating enable
 
+## Spotify
+for_window [class="Spotify"] move container to workspace number 10
+
 # Startup applications
 ## make protonvpn work
 exec --no-startup-id gnome-keyring-daemon --start 
@@ -253,3 +259,5 @@ exec --no-startup-id nm-applet
 exec --no-startup-id redshift -c ~/.config/redshift.conf
 ## dropbox
 exec --no-startup-id dropbox start
+## disable pop-up notifications (apply SIGUSR2 to resume it)
+exec --no-startup-id killall -SIGUSR1 dunst
