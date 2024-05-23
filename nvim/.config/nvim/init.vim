@@ -162,6 +162,8 @@ nmap <leader>j :r ~/documents/journal/template.md<CR>gg"=JournalHeader()<C-M>p2j
 
 " vim-pencil
 let g:pencil#wrapModeDefault = 'hard'
+inoremap <leader>pt :PencilToggle<CR>
+nnoremap <leader>pt :PencilToggle<CR>
 augroup pencil
         autocmd!
         autocmd FileType markdown,mkd,md,tex call pencil#init({'wrap': 'hard'})

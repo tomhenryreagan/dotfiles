@@ -8,6 +8,13 @@ icons = "awesome6"
 icons_format = "{icon}"
 
 [[block]]
+# Get current weather from wttr.in every 5 minutes
+block = "custom" 
+json = true
+command = "fetch_wttr --json --location somerville"
+interval = 300
+
+[[block]]
 block = "net"
 #interface_name_exclude = []
 #interface_name_include = ["wg\\d+"]
@@ -32,7 +39,7 @@ format = "$icon $available"
 
 [[block]]
 block = "sound"
-#format = " {volume}"
+format = "$icon $volume $output_description"
 
 [[block]]
 block = "time"

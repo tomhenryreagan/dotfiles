@@ -1,4 +1,4 @@
-directory: ~/music
+directory: /srv/music
 import:
   move: yes
   log: ~/.config/beets/beets.log

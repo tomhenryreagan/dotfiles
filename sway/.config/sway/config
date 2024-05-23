@@ -9,6 +9,11 @@ set $sup Control
     xkb_options ctrl:nocaps
  }
 
+ input "type:pointer" {
+        accel_profile "flat"
+        pointer_accel 1.0
+ }
+
 # Directions
 set $left h
 set $down j
@@ -121,7 +126,6 @@ workspace 10     output $right_monitor
 
 # Map tablet to left monitor always
  input type:tablet_tool map_to_output $left_monitor
-# input type:tablet_tool map_to_output $right_monitor
 
 # Split container
 bindsym $mod+b splith
@@ -176,18 +180,27 @@ bindsym $mod+r mode "resize"
 # Status Bar
 set $transparent #00000009
 bar {
-    status_command i3status-rs 
+    status_command i3status-rs config.toml
+    font pango: inconsolata, Font Awesome 6 Free 10
+    position top
+    height 24
+    status_padding 0
+    output $left_monitor
+}
+bar {
+    status_command i3status-rs vertical_monitor.toml
     font pango: inconsolata, Font Awesome 6 Free 10
     position top
     height 16
     status_padding 0
+    output $right_monitor
 }
 
 # Take Screenshots
 ## Whole screen
-bindsym $mod+F4 exec grim ~/pictures/screenshots/$(date +'%Y-%m-%d-%H%M%S_grim.png')
+bindsym $mod+$sup+F4 exec grim ~/img/screenshots/$(date +'%Y-%m-%d-%H%M%S_screenshot.png')
 ## Selection
-bindsym $mod+$sup+F4 exec grim -g "$(slurp)" ~/pictures/screenshots/$(date +'%Y-%m-%d-%H%M%S_grim.png')
+bindsym $mod++F4 exec grim -g "$(slurp)" ~/img/screenshots/$(date +'%Y-%m-%d-%H%M%S_screenshot.png')
 
 # Volume control
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +2% 
@@ -204,7 +217,7 @@ bindsym $mod+$sup+BackSpace exec swaylock -f -c 000000 && systemctl suspend
 ## TODO: this one doesn't work
 bindsym $mod+Shift+BackSpace exec kill -s SIGTERM $(pgrep swayidle)
 
-exec swayidle timeout 3600 'swaylock -f' timeout 3605 'swaymsg "output * power off"' timeout 3610 'systemctl suspend' resume 'swaymsg "output * power on"'
+exec ~/.local/bin/tomhenry_screen_lock
 
 # Brightness control
 bindsym $mod+F1 exec brightnessctl set 5%-
@@ -227,6 +240,11 @@ client.background       #FFFFFF
 
 # Mouse doesn't move with focus
 mouse_warping none
+
+# Switch mouse handedness (big trackball only)
+set $TRACKBALL "1149:32793:ExpertBT3.0_Mouse"
+# TODO: Figure out how to toggle between modes
+
 
 # GTK Theme
 exec_always gsettings set org.gnome.desktop.interface gtk-theme Arc-Dark
@@ -255,3 +273,5 @@ exec gnome-keyring-daemon --start
 exec nm-applet
 ## geo-based day/night redshift
 exec gammastep 
+## make big monitor the primary (needed for video games to use full resolution in XWayland)
+exec xrandr --output HDMI-A-1 --primary
