@@ -8,11 +8,11 @@ icons = "awesome6"
 icons_format = "{icon}"
 
 [[block]]
-# Get current weather from wttr.in every 5 minutes
+# Get current weather from wttr.in every 15 minutes
 block = "custom" 
 json = true
 command = "fetch_wttr --json --location somerville"
-interval = 300
+interval = 900
 
 [[block]]
 block = "net"
