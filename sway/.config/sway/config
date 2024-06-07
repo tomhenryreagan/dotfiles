@@ -124,7 +124,7 @@ workspace 9     output $right_monitor
 workspace 10     output $right_monitor
 
 # Map tablet to left monitor always
- input type:tablet_tool map_to_output $left_monitor
+input type:tablet_tool map_to_output $left_monitor
 
 # Split container
 bindsym $mod+b splith
@@ -244,7 +244,6 @@ mouse_warping none
 set $TRACKBALL "1149:32793:ExpertBT3.0_Mouse"
 # TODO: Figure out how to toggle between modes
 
-
 # GTK Theme
 exec_always gsettings set org.gnome.desktop.interface gtk-theme Arc-Dark
 
@@ -252,10 +251,13 @@ exec_always gsettings set org.gnome.desktop.interface gtk-theme Arc-Dark
 ## Was 33.jpg
 output * bg /home/tomhenry/.config/sway/wallpaper fill 
 
-# Application specific window configs
-## XWayland
-for_window [shell="xwayland"] title_format "%title [XWayland]"
+# Window titles
+## Wayland windows
+for_window [title="."] title_format "%app_id"
+## X11 windows
+for_window [shell="xwayland"] title_format "%class [XWayland]"
 
+# Application specific window configs
 ## Zoom
 for_window [class="(.*join\?action\=join.*|.*zoom.*)"] floating enable
 for_window [class="(.*join\?action\=join.*|.*zoom.*)" title="Zoom - Licensed Account"] floating disable
@@ -263,6 +265,19 @@ for_window [class="(.*join\?action\=join.*|.*zoom.*)" title="Zoom Meeting"] floa
 
 ## Gnome Calculator
 for_window [class="gnome-calculator"] floating enable
+
+## Bitwarden
+for_window [class="Bitwarden"] floating enable
+for_window [class="Bitwarden"] resize set 640 480
+
+## Messaging -- workspace 9
+assign [app_id=cinny] workspace number 9
+assign [class=(Beeper|Element|discord)] workspace number 9
+for_window [workspace=9] layout tabbed
+
+## Music players -- workspace 10
+assign [class="Spotify"] workspace number 10
+assign [app_id="cantata"] workspace number 10
 
 # Startup applications
 ## clipman
@@ -273,4 +288,7 @@ exec nm-applet
 ## geo-based day/night redshift
 exec gammastep 
 ## make big monitor the primary (needed for video games to use full resolution in XWayland)
-exec xrandr --output HDMI-A-1 --primary
+exec_always xrandr --output HDMI-A-1 --primary
+## chat apps
+exec beeper
+exec cinny
