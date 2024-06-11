@@ -23,8 +23,13 @@ alias vrc='nvim $ZDOTDIR/.zshrc'
 alias gv='gvim'
 alias gvr='gvim -R'
 alias gvrc='gvim $ZDOTDIR/.zshrc'
-alias r='readlink -f'
-alias z='zathura'
+alias r='readlink -e'
+if (( $+commands[zathura] ))
+then
+    alias z='zathura'
+else
+    alias z='evince'
+fi
 alias x='xournalpp'
 alias py='python3'
 alias g='grep -E'

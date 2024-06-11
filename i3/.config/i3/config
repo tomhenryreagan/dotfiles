@@ -233,10 +233,6 @@ mouse_warping none
 exec_always --no-startup-id gsettings set org.gnome.desktop.interface gtk-theme Arc-Dark
 
 # Application specific window configs
-## Zoom TODO make these work
-#for_window [class="(.*join\?action\=join.*|.*zoom.*)"] floating enable
-#for_window [class="(.*join\?action\=join.*|.*zoom.*)" title="Zoom - Licensed Account"] floating disable
-#for_window [class="(.*join\?action\=join.*|.*zoom.*)" title="Zoom Meeting"] floating disable
 
 ## Bitwarden
 for_window [class="Bitwarden"] floating enable
@@ -250,6 +246,12 @@ for_window [class="AuthenticatorGUI"] floating enable
 
 ## Spotify
 for_window [class="Spotify"] move container to workspace number 10
+
+## Messaging apps
+assign [class="^Beeper$"] 9
+assign [class="^discord$"] 9
+assign [class="^Element$"] 9
+assign [class="^Slack$"] 9
 
 # Startup applications
 ## make protonvpn work
