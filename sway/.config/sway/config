@@ -291,4 +291,6 @@ exec gammastep
 exec_always xrandr --output HDMI-A-1 --primary
 ## chat apps
 exec beeper
-exec cinny
+exec element
+## music
+exec cantata
