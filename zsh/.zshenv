@@ -34,4 +34,5 @@ export WTTR_LOC=somerville
 
 #======PATH======#
 path+=('/home/tomhenry/.local/bin')
+path+=('/usr/local/texlive/2024/bin/x86_64-linux')
 export PATH
