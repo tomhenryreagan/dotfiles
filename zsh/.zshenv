@@ -24,10 +24,15 @@ export EDITOR="nvim"
 export GOPATH="$XDG_DATA_HOME/go"
 
 #=====QT=====#
-export QT_QPA_PLATFORM="wayland"
-# Next two are to get cantata dark theme
-export GTK2_RC_FILES=/usr/share/themes/Arc-Dark/gtk-2.0/gtkrc
-export QT_QPA_PLATFORMTHEME=gtk2
+if [[ "$HOST" == "egret" ]]; then
+    export QT_QPA_PLATFORM="wayland"
+    # Next two are to get cantata dark theme
+    export GTK2_RC_FILES=/usr/share/themes/Arc-Dark/gtk-2.0/gtkrc
+    export QT_QPA_PLATFORMTHEME=gtk2
+fi
+if [[ "$HOST" == "cardinal" ]]; then
+    export QT_QPA_PLATFORM="xcb"
+fi
 
 #=====FETCH_WTTR=====#
 export WTTR_LOC=somerville
