@@ -113,7 +113,7 @@ workspace 9     output $home_r $work_r $laptop
 workspace 10    output $home_r $work_r $laptop
 
 # Load XRandR configuration automatically
-bindsym $mod+c exec autorandr --change
+bindsym $mod+c exec chandr
 bindsym $mod+$sup+c exec autorandr --load solo
 
 # Split container
