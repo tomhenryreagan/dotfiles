@@ -2,4 +2,4 @@ directory: /srv/music
 import:
   move: yes
   log: ~/.config/beets/beets.log
-plugins: fetchart ftintitle lastgenre lastimport 
+plugins: musicbrainz fetchart ftintitle lastgenre lastimport scrub

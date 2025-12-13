@@ -16,6 +16,10 @@ export MOZ_ENABLE_WAYLAND=1
 #======EDITOR======#
 export EDITOR="nvim"
 
+#======ELECTRON======#
+export ELECTRON_ENABLE_WAYLAND=1
+export ELECTRON_OZONE_PLATFORM_HINT=wayland
+
 #======ZOOM======#
 # Required for zoom to allow screensharing
 #export XDG_CURRENT_DESKTOP=gnome
@@ -33,6 +37,10 @@ fi
 if [[ "$HOST" == "cardinal" ]]; then
     export QT_QPA_PLATFORM="xcb"
 fi
+
+#=====GTK=====#
+# GTK4 graphical glitches 12-23-2024
+export GSK_RENDERER=gl
 
 #=====FETCH_WTTR=====#
 export WTTR_LOC=somerville

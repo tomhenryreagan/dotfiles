@@ -124,7 +124,10 @@ workspace 9     output $right_monitor
 workspace 10     output $right_monitor
 
 # Map tablet to left monitor always
-input type:tablet_tool map_to_output $left_monitor
+#14718 X 9197 Y 
+#input type:tablet_tool map_to_output $right_monitor
+input type:tablet_tool map_to_region 1520 0 1920 1440
+
 
 # Split container
 bindsym $mod+b splith
@@ -206,8 +209,10 @@ bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +2%
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -2% 
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym $sup+XF86AudioPlay exec ~/.local/bin/switch_sink
+## Connect Sony Headphones
 bindsym $mod+n exec bluetoothctl -- connect 14:3F:A6:60:36:CC
 bindsym $sup+$mod+n exec bluetoothctl -- disconnect 14:3F:A6:60:36:CC
+## Connect Bone Conduction Headphones -- A8:F5:E1:7B:FA:01
 
 # Lock screen with keyboard shorcut
 ## Also see ~/.local/bin/delay_suspend
@@ -216,7 +221,7 @@ bindsym $mod+$sup+BackSpace exec swaylock -f -c 000000 && systemctl suspend
 ## TODO: this one doesn't work
 bindsym $mod+Shift+BackSpace exec kill -s SIGTERM $(pgrep swayidle)
 
-exec ~/.local/bin/tomhenry_screen_lock
+exec ~/.local/bin/egret_idle
 
 # Brightness control
 bindsym $mod+F1 exec brightnessctl set 5%-
@@ -289,8 +294,3 @@ exec nm-applet
 exec gammastep 
 ## make big monitor the primary (needed for video games to use full resolution in XWayland)
 exec_always xrandr --output HDMI-A-1 --primary
-## chat apps
-exec beeper
-exec element
-## music
-exec cantata

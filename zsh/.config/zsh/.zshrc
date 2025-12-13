@@ -38,10 +38,15 @@ alias vpn='protonvpn-cli'
 alias vsway='nvim $XDG_CONFIG_HOME/sway/config'
 alias kill_idle='kill -s SIGTERM $(pgrep swayidle)'
 alias refresh_monitors='swaymsg "output * power off"; sleep 3s; swaymsg "output * power on"'
+alias imv='swayimg'
+alias pgrep='pgrep --list-name'
 
 # Get ip addresses
 alias myv4="curl https://ipv4.icanhazip.com/s && echo"
 alias myv6="curl https://ipv6.icanhazip.com/s && echo"
+
+# Launch Google Earth on Wayland
+alias earth='env -u QT_QPA_PLATFORMTHEME -u QT_QPA_PLATFORM /opt/google/earth/pro/google-earth-pro'
 
 #======Autocompletion======#
 zstyle :compinstall filename '$ZDOTDIR/.zshrc'
