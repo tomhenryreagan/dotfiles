@@ -21,7 +21,7 @@ set $up k
 set $right l
 
 # Default terminal
-set $term foot
+set $term kitty
 
 # Window title font
 font pango:inconsolata 12
@@ -106,8 +106,8 @@ bindsym $mod+$sup+9 move container to workspace number 9
 bindsym $mod+$sup+0 move container to workspace number 10
 
 # Multi-monitor setup
-set $left_monitor HDMI-A-1
-set $right_monitor DVI-D-2
+set $left_monitor DP-1
+set $right_monitor HDMI-A-1
 output $left_monitor pos 0 0 res 3440x1440 
 output $right_monitor pos 3440 0 res 1920x1080 transform 90 
 ## 1-5 -> left monitor
@@ -117,17 +117,16 @@ workspace 2     output $left_monitor
 workspace 3     output $left_monitor
 workspace 4     output $left_monitor
 workspace 5     output $left_monitor
-workspace 6     output $right_monitor
-workspace 7     output $right_monitor
+workspace 6     output $left_monitor
+workspace 7     output $left_monitor
 workspace 8     output $right_monitor
 workspace 9     output $right_monitor
-workspace 10     output $right_monitor
+workspace 10    output $right_monitor
 
 # Map tablet to left monitor always
 #14718 X 9197 Y 
 #input type:tablet_tool map_to_output $right_monitor
 input type:tablet_tool map_to_region 1520 0 1920 1440
-
 
 # Split container
 bindsym $mod+b splith
@@ -218,10 +217,10 @@ bindsym $sup+$mod+n exec bluetoothctl -- disconnect 14:3F:A6:60:36:CC
 ## Also see ~/.local/bin/delay_suspend
 bindsym $mod+BackSpace exec swaylock -f -c 000000 
 bindsym $mod+$sup+BackSpace exec swaylock -f -c 000000 && systemctl suspend
-## TODO: this one doesn't work
-bindsym $mod+Shift+BackSpace exec kill -s SIGTERM $(pgrep swayidle)
 
-exec ~/.local/bin/egret_idle
+# Idle management w/ swayidle
+bindsym $mod+i exec ~/.local/bin/egret_idle
+bindsym $mod+$sup+i exec pkill swayidle
 
 # Brightness control
 bindsym $mod+F1 exec brightnessctl set 5%-
@@ -249,12 +248,8 @@ mouse_warping none
 set $TRACKBALL "1149:32793:ExpertBT3.0_Mouse"
 # TODO: Figure out how to toggle between modes
 
-# GTK Theme
-exec_always gsettings set org.gnome.desktop.interface gtk-theme Arc-Dark
-
 # Desktop background
-## Was 33.jpg
-output * bg /home/tomhenry/.config/sway/wallpaper fill 
+output * bg /home/tomhenry/.config/sway/wallpaper fit #91B9BB
 
 # Window titles
 ## Wayland windows
@@ -276,9 +271,7 @@ for_window [class="Bitwarden"] floating enable
 for_window [class="Bitwarden"] resize set 640 480
 
 ## Messaging -- workspace 9
-assign [app_id=cinny] workspace number 9
 assign [class=(Beeper|Element|discord)] workspace number 9
-for_window [workspace=9] layout tabbed
 
 ## Music players -- workspace 10
 assign [class="Spotify"] workspace number 10
@@ -294,3 +287,7 @@ exec nm-applet
 exec gammastep 
 ## make big monitor the primary (needed for video games to use full resolution in XWayland)
 exec_always xrandr --output HDMI-A-1 --primary
+## GTK Theme
+exec_always gsettings set org.gnome.desktop.interface gtk-theme Arc-Dark
+## idle manager on by default
+exec ~/.local/bin/egret_idle
